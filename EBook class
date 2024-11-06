@@ -1,0 +1,19 @@
+# EBook.py
+class EBook:
+    """Represents an e-book in the store with details like title, author, publication date, genre, and price."""
+    def __init__(self, title, author, publication_date, genre, price):
+        """Initialize an EBook instance."""
+        self.__title = title
+        self.__author = author
+        self.__publication_date = publication_date
+        self.__genre = genre
+        self.__price = price
+
+    def get_price(self):
+        """Return the price of the e-book."""
+        return self.__price
+
+    def __str__(self):
+        """Return a string representation of the EBook."""
+        return f"EBook(title={self.__title}, author={self.__author}, price={self.__price})"
+    
