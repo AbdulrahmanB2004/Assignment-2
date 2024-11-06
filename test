@@ -1,0 +1,67 @@
+# test_ebookstore.py
+import unittest
+
+class TestEBookstore(unittest.TestCase):
+
+    def setUp(self):
+        """Set up sample data for testing."""
+        self.ebook1 = EBook("Python Programming", "John Doe", "2021-05-01", "Programming", 30.00)
+        self.ebook2 = EBook("Data Science 101", "Jane Smith", "2020-09-15", "Data Science", 45.00)
+        self.customer = Customer("Alice Brown", "alice@example.com", "CUST001", loyalty_program=True)
+        self.cart = ShoppingCart()
+
+    def test_add_ebook(self):
+        """Test adding an e-book to the system."""
+        self.assertEqual(self.ebook1.get_price(), 30.00)
+        self.assertEqual(self.ebook2.get_price(), 45.00)
+
+    def test_modify_ebook(self):
+        """Test modifying the price of an e-book."""
+        self.ebook1._EBook__price = 35.00
+        self.assertEqual(self.ebook1.get_price(), 35.00)
+
+    def test_add_customer(self):
+        """Test adding a customer."""
+        self.assertEqual(self.customer.is_loyal(), True)
+
+    def test_add_to_cart(self):
+        """Test adding e-books to the shopping cart."""
+        self.cart.add_item(self.ebook1, 2)
+        self.cart.add_item(self.ebook2, 1)
+        self.assertEqual(len(self.cart.get_items()), 2)
+        self.assertEqual(self.cart.calculate_total(), 105.00)
+
+    def test_loyalty_discount(self):
+        """Test applying loyalty discount for loyalty program members."""
+        self.cart.add_item(self.ebook1, 3)
+        order = Order(self.customer, self.cart.get_items())
+        self.assertAlmostEqual(order.calculate_total_price(), 81.00)
+
+    def test_invoice_generation(self):
+        """Test generating an invoice with discounts and VAT."""
+        self.cart.add_item(self.ebook1, 3)
+        order = Order(self.customer, self.cart.get_items())
+        invoice = Invoice(order)
+        expected_total_with_vat = order.get_total_with_vat()
+        self.assertAlmostEqual(invoice._Invoice__final_total, expected_total_with_vat)
+
+def test_inventory(self):
+    """Test adding and removing stock from inventory."""
+    inventory = Inventory()
+    inventory.add_stock(self.ebook1, 10)
+    self.assertEqual(inventory.get_stock(self.ebook1), 10)
+
+    inventory.remove_stock(self.ebook1, 5)
+    self.assertEqual(inventory.get_stock(self.ebook1), 5)
+
+    with self.assertRaises(ValueError):
+        inventory.remove_stock(self.ebook1, 10)  # Trying to remove more than available
+
+def test_review(self):
+    """Test creating a review and accessing rating and comment."""
+    review = Review(self.customer, self.ebook1, 5, "Great e-book on Python programming.")
+    self.assertEqual(review.get_rating(), 5)
+    self.assertEqual(review.get_comment(), "Great e-book on Python programming.")
+
+# Run the tests
+unittest.main(argv=[''], exit=False)
