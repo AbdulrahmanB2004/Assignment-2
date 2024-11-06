@@ -1,0 +1,16 @@
+# OrderItem.py
+class OrderItem:
+    """Represents an item in an order or shopping cart with a reference to an e-book and quantity."""
+
+    def __init__(self, ebook, quantity):
+        """Initialize an OrderItem instance."""
+        self.__ebook = ebook
+        self.__quantity = quantity
+
+    def get_total_price(self):
+        """Calculate and return the total price of this order item based on quantity."""
+        return self.__ebook.get_price() * self.__quantity
+
+    def __str__(self):
+        """Return a string representation of the OrderItem."""
+        return f"OrderItem(ebook={self.__ebook}, quantity={self.__quantity})"
