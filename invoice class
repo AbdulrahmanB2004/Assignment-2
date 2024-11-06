@@ -1,0 +1,13 @@
+# Invoice.py
+class Invoice:
+    """Represents an invoice for an order, including VAT and final total."""
+
+    def __init__(self, order):
+        """Initialize an Invoice instance."""
+        self.__order = order
+        self.__vat = order.calculate_vat()
+        self.__final_total = order.get_total_with_vat()
+
+    def __str__(self):
+        """Return a string representation of the Invoice."""
+        return (f"Invoice(order={self.__order}, vat={self.__vat}, final_total={self.__final_total})")
