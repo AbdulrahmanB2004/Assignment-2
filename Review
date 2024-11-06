@@ -1,0 +1,27 @@
+# Review.py
+class Review:
+    """Represents a review for an e-book, including a rating and comment from the customer."""
+
+    def __init__(self, customer, ebook, rating, comment):
+        """Initialize a Review instance."""
+        if not (1 <= rating <= 5):
+            raise ValueError("Rating must be between 1 and 5.")
+
+        self.__customer = customer
+        self.__ebook = ebook
+        self.__rating = rating
+        self.__comment = comment
+        self.__date = datetime.now()
+
+    def get_rating(self):
+        """Return the rating given by the customer."""
+        return self.__rating
+
+    def get_comment(self):
+        """Return the comment given by the customer."""
+        return self.__comment
+
+    def __str__(self):
+        """Return a string representation of the Review."""
+        return (f"Review(customer={self.__customer}, ebook={self.__ebook}, rating={self.__rating}, "
+                f"comment={self.__comment}, date={self.__date})")
