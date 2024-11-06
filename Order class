@@ -1,0 +1,37 @@
+# Order.py
+from datetime import datetime
+
+class Order:
+    """Represents an order with a customer, items, order date, total price, and VAT calculations."""
+
+    VAT_RATE = 0.08  # Constant VAT rate of 8%
+
+    def __init__(self, customer, items):
+        """Initialize an Order instance."""
+        self.__order_date = datetime.now()
+        self.__customer = customer
+        self.__items = items
+        self.__total_price = self.calculate_total_price()
+
+    def calculate_total_price(self):
+        """Calculate the total price of the order with discounts for loyalty and bulk purchases."""
+        total = sum(item.get_total_price() for item in self.__items)
+        discount = 0
+        if self.__customer.is_loyal():
+            discount += total * 0.10  # 10% loyalty discount
+        if len(self.__items) >= 5:
+            discount += total * 0.20  # 20% bulk discount for 5+ items
+        return total - discount
+
+    def calculate_vat(self):
+        """Calculate and return the VAT on the total price."""
+        return self.__total_price * self.VAT_RATE
+
+    def get_total_with_vat(self):
+        """Return the total price including VAT."""
+        return self.__total_price + self.calculate_vat()
+
+    def __str__(self):
+        """Return a string representation of the Order."""
+        return (f"Order(customer={self.__customer}, order_date={self.__order_date}, "
+                f"total_price={self.__total_price}, vat={self.calculate_vat()}, total_with_vat={self.get_total_with_vat()})")
