@@ -1,0 +1,18 @@
+# Customer.py
+class Customer:
+    """Represents a customer with name, contact info, account ID, and loyalty program status."""
+
+    def __init__(self, name, contact_info, account_id, loyalty_program=False):
+        """Initialize a Customer instance."""
+        self.__name = name
+        self.__contact_info = contact_info
+        self.__account_id = account_id
+        self.__loyalty_program = loyalty_program
+
+    def is_loyal(self):
+        """Return whether the customer is part of the loyalty program."""
+        return self.__loyalty_program
+
+    def __str__(self):
+        """Return a string representation of the Customer."""
+        return f"Customer(name={self.__name}, account_id={self.__account_id}, loyalty_program={self.__loyalty_program})"
